@@ -13,10 +13,18 @@ class DoITViewController: UITableViewController  {
     // create demo tableview data
     
    var itemArray  = ["Buy Dog food", "Create Website", "Call Doug"]
-
+ 
+    let defaults = UserDefaults.standard
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let items = defaults.array(forKey: "TodoListArray") as? [String]   {
+            
+            itemArray = items
+            
+        }
       
     }
     
@@ -75,7 +83,10 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
             //what will happen once user presses add item on uialert
             
          self.itemArray.append(textField.text!)
-            self.tableView.reloadData()
+            
+         self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
+         self.tableView.reloadData()
             
         }
         
