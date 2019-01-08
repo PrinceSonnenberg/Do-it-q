@@ -10,36 +10,18 @@ import UIKit
 
 class DoITViewController: UITableViewController  {
     
-    // create demo tableview data
-   
-    
-   var itemArray  = [Item]()
- 
+    var itemArray  = [Item]()
+
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+  
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let newItem = Item()
-        newItem.title = "Find Mike"
-        itemArray.append(newItem)
-
-        let newItem1 = Item()
-        newItem1.title = "Catch Mike"
-        itemArray.append(newItem1)
-
+        print(dataFilePath)
         
-        let newItem2 = Item()
-        newItem2.title = "Kill Mike"
-        itemArray.append(newItem2)
-
-        
-       if let items = defaults.array(forKey: "TodoListArray") as? [Item]   {
-            
-       itemArray = items
-        
-        }
-        
+        loadItems()
 }
     
 
@@ -68,14 +50,7 @@ class DoITViewController: UITableViewController  {
         cell.accessoryType = item.done == true ? . checkmark : .none
         
         
-//        if item.done ==  true {
-//            cell.accessoryType = .checkmark
-//
-//        } else {
-//            cell.accessoryType = .none
-//
-//        }
-//
+
             return cell
     }
     
@@ -84,13 +59,10 @@ class DoITViewController: UITableViewController  {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
-        
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
- 
-        
-        tableView.reloadData()
-        // highlight selection in gray for a second
+        saveItems()
+    
         tableView.deselectRow(at: indexPath, animated: true)
     
     }
@@ -110,13 +82,11 @@ class DoITViewController: UITableViewController  {
          newItem.title = textField.text!
             
          self.itemArray.append(newItem)
-            
-         self.defaults.set(self.itemArray, forKey: "TodoListArray")
-            
-         self.tableView.reloadData()
-            
-        }
         
+         self.saveItems()
+        
+        }
+    
         alert.addTextField{( alertTextField) in
         alertTextField.placeholder = "Create new item"
         textField = alertTextField
@@ -124,11 +94,50 @@ class DoITViewController: UITableViewController  {
     }
         alert.addAction(action)
         
-        present(alert,animated: true, completion: nil)
+        self.present(alert,animated: true, completion: nil)
         
         
         
-}
+        }
+
+ //Mark - Model manipulation functions
+    
+    
+    func saveItems(){
+        
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+            
+        } catch {
+            print("error encoding, \(error)")
+        }
+        
+        self.tableView.reloadData()
+        
+        }
+    
+    
+    func loadItems(){
+        
+        if let data = try? Data(contentsOf: dataFilePath!){
+            let decoder = PropertyListDecoder()
+            do {
+             itemArray = try decoder.decode([Item].self, from: data)
+            }
+            catch {
+                
+                print(error)
+                
+            }
+        }
+        
+    }
+    
+        
+    }
+    
 
 
-}
