@@ -7,19 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class DoITViewController: UITableViewController  {
     
     var itemArray  = [Item]()
 
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
   
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(dataFilePath)
+    print (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
         
         loadItems()
 }
@@ -36,8 +38,6 @@ class DoITViewController: UITableViewController  {
         
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       
-    
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
     
         let item = itemArray[indexPath.row]
@@ -48,10 +48,8 @@ class DoITViewController: UITableViewController  {
         // value = condition ? valueiftrue : valueiffalse
         
         cell.accessoryType = item.done == true ? . checkmark : .none
-        
-        
 
-            return cell
+        return cell
     }
     
 
@@ -77,10 +75,11 @@ class DoITViewController: UITableViewController  {
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //what will happen once user presses add item on uialert
-  
-         let newItem = Item()
-         newItem.title = textField.text!
             
+    
+         let newItem = Item(context: self.context)
+         newItem.title = textField.text!
+         newItem.done = false
          self.itemArray.append(newItem)
         
          self.saveItems()
@@ -96,23 +95,17 @@ class DoITViewController: UITableViewController  {
         
         self.present(alert,animated: true, completion: nil)
         
-        
-        
         }
 
  //Mark - Model manipulation functions
     
     
     func saveItems(){
-        
-        let encoder = PropertyListEncoder()
-        
+    
         do {
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
-            
+           try context.save()
         } catch {
-            print("error encoding, \(error)")
+            print("Error saving data, \(error)")
         }
         
         self.tableView.reloadData()
@@ -121,23 +114,14 @@ class DoITViewController: UITableViewController  {
     
     
     func loadItems(){
-        
-        if let data = try? Data(contentsOf: dataFilePath!){
-            let decoder = PropertyListDecoder()
-            do {
-             itemArray = try decoder.decode([Item].self, from: data)
-            }
-            catch {
-                
-                print(error)
-                
-            }
+
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+        do{
+      itemArray =  try context.fetch(request)
+        } catch{
+            print("Error getting data from context, \(error)")
         }
-        
-    }
-    
-        
     }
     
 
-
+}
