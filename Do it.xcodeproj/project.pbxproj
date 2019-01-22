@@ -12,7 +12,8 @@
 		011E8D5921DE5679006B1EA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011E8D5721DE5679006B1EA9 /* Main.storyboard */; };
 		011E8D5B21DE567B006B1EA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011E8D5A21DE567B006B1EA9 /* Assets.xcassets */; };
 		011E8D5E21DE567B006B1EA9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 011E8D5C21DE567B006B1EA9 /* LaunchScreen.storyboard */; };
-		01A67EE521E4D16E0092E1B7 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01A67EE321E4D16E0092E1B7 /* DataModel.xcdatamodeld */; };
+		016E0D6721F6C6CC00BCFFA8 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E0D6621F6C6CC00BCFFA8 /* Category.swift */; };
+		016E0D6921F6C6DE00BCFFA8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016E0D6821F6C6DE00BCFFA8 /* Item.swift */; };
 		01DE0D5921E90A2200CE7F4E /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DE0D5821E90A2200CE7F4E /* CategoryViewController.swift */; };
 		EC0E30965262D0CE20B55B6A /* Pods_Do_it.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3D1B230A2FFD321078EBF0 /* Pods_Do_it.framework */; };
 /* End PBXBuildFile section */
@@ -25,7 +26,8 @@
 		011E8D5A21DE567B006B1EA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		011E8D5D21DE567B006B1EA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		011E8D5F21DE567B006B1EA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		01A67EE421E4D16E0092E1B7 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		016E0D6621F6C6CC00BCFFA8 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		016E0D6821F6C6DE00BCFFA8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		01DE0D5821E90A2200CE7F4E /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		63B8BB3E8A991721CF49E906 /* Pods-Do it.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Do it.release.xcconfig"; path = "Pods/Target Support Files/Pods-Do it/Pods-Do it.release.xcconfig"; sourceTree = "<group>"; };
 		66B10D2CCF7E4B7B81781681 /* Pods-Do it.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Do it.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Do it/Pods-Do it.debug.xcconfig"; sourceTree = "<group>"; };
@@ -47,7 +49,8 @@
 		0106A49821E20C0B006642A4 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				01A67EE321E4D16E0092E1B7 /* DataModel.xcdatamodeld */,
+				016E0D6621F6C6CC00BCFFA8 /* Category.swift */,
+				016E0D6821F6C6DE00BCFFA8 /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -250,8 +253,9 @@
 			files = (
 				01DE0D5921E90A2200CE7F4E /* CategoryViewController.swift in Sources */,
 				011E8D5621DE5679006B1EA9 /* DoItVC.swift in Sources */,
-				01A67EE521E4D16E0092E1B7 /* DataModel.xcdatamodeld in Sources */,
+				016E0D6921F6C6DE00BCFFA8 /* Item.swift in Sources */,
 				011E8D5421DE5679006B1EA9 /* AppDelegate.swift in Sources */,
+				016E0D6721F6C6CC00BCFFA8 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,19 +455,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		01A67EE321E4D16E0092E1B7 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				01A67EE421E4D16E0092E1B7 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 01A67EE421E4D16E0092E1B7 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 011E8D4821DE5679006B1EA9 /* Project object */;
 }

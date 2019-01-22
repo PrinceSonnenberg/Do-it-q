@@ -7,10 +7,13 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryViewController: UITableViewController {
 
+    
+    let realm = try! Realm()
+    
     var nameArray = [Category]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -18,9 +21,9 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let request:NSFetchRequest<Category> = Category.fetchRequest()
+      //  let request:NSFetchRequest<Category> = Category.fetchRequest()
         
-        loadCategory()
+     //   loadCategory()
         
         
         
@@ -79,12 +82,12 @@ class CategoryViewController: UITableViewController {
             //what will happen once user presses add item on uialert
             
             
-            let newCategory = Category(context: self.context)
+            let newCategory = Category()
             newCategory.name = textField.text!
             //newItem.done = false
             self.nameArray.append(newCategory)
             
-            self.saveCategory()
+            self.save(category: newCategory)
             
         }
             alert.addAction(action)
@@ -102,10 +105,12 @@ class CategoryViewController: UITableViewController {
     }
     
     
-    func saveCategory(){
+    func save(category: Category){
         
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print("Error saving data, \(error)")
         }
@@ -114,19 +119,19 @@ class CategoryViewController: UITableViewController {
         
     }
     
-    func loadCategory(with request: NSFetchRequest<Category> = Category.fetchRequest()){
-        
-        do{
-            nameArray =  try context.fetch(request)
-        } catch{
-            print("Error getting data from context, \(error)")
-        }
-        
-        tableView.reloadData()
+//    func loadCategory(with request: NSFetchRequest<Category> = Category.fetchRequest()){
+//        
+//        do{
+//            nameArray =  try context.fetch(request)
+//        } catch{
+//            print("Error getting data from context, \(error)")
+//        }
+//        
+ //     tableView.reloadData()
     }
     
     
         //MARK:- Tableview Delegate Methods
         
-    }
+
 
